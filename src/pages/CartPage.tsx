@@ -1,4 +1,3 @@
-
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Trash2, Plus, Minus } from "lucide-react";
@@ -33,7 +32,7 @@ const CartPage = () => {
                   <div className="ml-4 flex-grow">
                     <h3 className="font-medium">{item.title}</h3>
                     <p className="text-gray-500 text-sm">
-                      ${item.price.toFixed(2)} each
+                      ₹{item.price.toFixed(2)} each
                     </p>
                   </div>
                   <div className="flex items-center border border-gray-300 rounded-md mx-4">
@@ -54,7 +53,7 @@ const CartPage = () => {
                     </button>
                   </div>
                   <div className="font-medium w-24 text-right">
-                    ${(item.price * item.quantity).toFixed(2)}
+                    ₹{(item.price * item.quantity).toFixed(2)}
                   </div>
                   <button
                     className="ml-4 p-2 text-gray-500 hover:text-red-500"
@@ -84,7 +83,7 @@ const CartPage = () => {
               <div className="space-y-2 mb-4">
                 <div className="flex justify-between">
                   <span>Subtotal</span>
-                  <span>${cartTotal.toFixed(2)}</span>
+                  <span>₹{cartTotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Shipping</span>
@@ -93,12 +92,15 @@ const CartPage = () => {
                 <div className="border-t border-gray-200 my-2 pt-2">
                   <div className="flex justify-between font-semibold">
                     <span>Total</span>
-                    <span>${cartTotal.toFixed(2)}</span>
+                    <span>₹{cartTotal.toFixed(2)}</span>
                   </div>
                 </div>
               </div>
 
-              <Button className="w-full btn-primary">
+              <Button
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                onClick={() => navigate('/checkout')}
+              >
                 Proceed to Checkout
               </Button>
             </div>
@@ -108,7 +110,7 @@ const CartPage = () => {
         <div className="text-center py-16 bg-white rounded-lg shadow-sm">
           <h2 className="text-xl font-medium mb-4">Your cart is empty</h2>
           <p className="text-gray-500 mb-8">Looks like you haven't added any products to your cart yet.</p>
-          <Button onClick={() => navigate('/products')} className="btn-primary">
+          <Button onClick={() => navigate('/products')} className="bg-blue-600 hover:bg-blue-700 text-white">
             Start Shopping
           </Button>
         </div>
