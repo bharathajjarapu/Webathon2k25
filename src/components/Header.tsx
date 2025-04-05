@@ -28,16 +28,16 @@ const Header = () => {
             <nav className="hidden md:block">
               <ul className="flex space-x-6">
                 <li>
-                  <a 
-                    href="/products" 
+                  <a
+                    href="/products"
                     className="text-gray-600 hover:text-shop-black transition-colors"
                   >
-                    All Products
+                    Products
                   </a>
                 </li>
                 <li>
-                  <a 
-                    href="/categories" 
+                  <a
+                    href="/categories"
                     className="text-gray-600 hover:text-shop-black transition-colors"
                   >
                     Categories
@@ -48,18 +48,18 @@ const Header = () => {
           </div>
 
           <div className="flex items-center space-x-4">
-            <Button 
-              variant="ghost" 
-              size="icon" 
+            <Button
+              variant="ghost"
+              size="icon"
               className="relative btn-icon"
               onClick={() => setIsSearchOpen(true)}
             >
               <Search className="h-5 w-5" />
             </Button>
-            
-            <Button 
-              variant="ghost" 
-              size="icon" 
+
+            <Button
+              variant="ghost"
+              size="icon"
               className="relative btn-icon"
               onClick={() => navigate("/wishlist")}
             >
@@ -70,10 +70,10 @@ const Header = () => {
                 </span>
               )}
             </Button>
-            
-            <Button 
-              variant="ghost" 
-              size="icon" 
+
+            <Button
+              variant="ghost"
+              size="icon"
               className="relative btn-icon"
               onClick={() => navigate("/cart")}
             >

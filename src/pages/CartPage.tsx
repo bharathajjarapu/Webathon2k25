@@ -12,21 +12,21 @@ const CartPage = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8">Your Cart</h1>
-      
+
       {cart.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Cart Items */}
           <div className="md:col-span-2">
             <div className="bg-white rounded-lg shadow-sm overflow-hidden">
               {cart.map((item) => (
-                <div 
+                <div
                   key={item.id}
                   className="flex items-center p-4 border-b last:border-b-0"
                 >
                   <div className="w-20 h-20 flex-shrink-0">
-                    <img 
-                      src={item.image} 
-                      alt={item.title} 
+                    <img
+                      src={item.image}
+                      alt={item.title}
                       className="w-full h-full object-contain"
                     />
                   </div>
@@ -37,7 +37,7 @@ const CartPage = () => {
                     </p>
                   </div>
                   <div className="flex items-center border border-gray-300 rounded-md mx-4">
-                    <button 
+                    <button
                       className="p-1 hover:bg-gray-100"
                       onClick={() => updateQuantity(item.id, item.quantity - 1)}
                     >
@@ -46,7 +46,7 @@ const CartPage = () => {
                     <div className="px-2">
                       {item.quantity}
                     </div>
-                    <button 
+                    <button
                       className="p-1 hover:bg-gray-100"
                       onClick={() => updateQuantity(item.id, item.quantity + 1)}
                     >
@@ -56,7 +56,7 @@ const CartPage = () => {
                   <div className="font-medium w-24 text-right">
                     ${(item.price * item.quantity).toFixed(2)}
                   </div>
-                  <button 
+                  <button
                     className="ml-4 p-2 text-gray-500 hover:text-red-500"
                     onClick={() => removeFromCart(item.id)}
                   >
@@ -65,7 +65,7 @@ const CartPage = () => {
                 </div>
               ))}
             </div>
-            
+
             <div className="mt-4 flex justify-between">
               <Button variant="ghost" onClick={() => navigate('/products')}>
                 Continue Shopping
@@ -75,12 +75,12 @@ const CartPage = () => {
               </Button>
             </div>
           </div>
-          
+
           {/* Order Summary */}
           <div className="md:col-span-1">
             <div className="bg-white rounded-lg shadow-sm p-6">
               <h2 className="text-xl font-semibold mb-4">Order Summary</h2>
-              
+
               <div className="space-y-2 mb-4">
                 <div className="flex justify-between">
                   <span>Subtotal</span>
@@ -97,7 +97,7 @@ const CartPage = () => {
                   </div>
                 </div>
               </div>
-              
+
               <Button className="w-full btn-primary">
                 Proceed to Checkout
               </Button>
