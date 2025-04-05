@@ -1,0 +1,68 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 10%;
+
+    --primary: 0 0% 10%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 10%;
+
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+
+    --accent: 0 0% 96%;
+    --accent-foreground: 0 0% 10%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 0 0% 90%;
+
+    --radius: 0.5rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+}
+
+@layer components {
+  .product-card {
+    @apply bg-white rounded-md overflow-hidden border border-gray-100 transition-all duration-200 hover:shadow-md;
+  }
+  
+  .product-image {
+    @apply aspect-square w-full object-cover transition-transform duration-300 hover:scale-105;
+  }
+
+  .btn-primary {
+    @apply bg-shop-black text-white px-4 py-2 rounded-md hover:bg-shop-darkgray transition-colors duration-200;
+  }
+
+  .btn-outline {
+    @apply border border-shop-black text-shop-black px-4 py-2 rounded-md hover:bg-shop-gray transition-colors duration-200;
+  }
+
+  .btn-icon {
+    @apply p-2 rounded-full hover:bg-shop-gray transition-colors duration-200;
+  }
+}
