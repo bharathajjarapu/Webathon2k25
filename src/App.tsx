@@ -6,6 +6,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CartProvider } from "@/context/CartContext";
 import { WishlistProvider } from "@/context/WishlistContext";
 import { SearchProvider } from "@/context/SearchContext";
+import { BrowsingHistoryProvider } from "@/context/BrowsingHistoryContext";
+import { RecommendationsProvider } from "@/context/RecommendationsContext";
 
 import Header from "@/components/Header";
 import Index from "@/pages/Index";
@@ -18,6 +20,7 @@ import CategoryProductsPage from "@/pages/CategoryProductsPage";
 import SearchResultsPage from "@/pages/SearchResultsPage";
 import Checkout from "@/pages/Checkout";
 import OrderSuccess from "@/pages/OrderSuccess";
+import BrowsingHistoryPage from "@/pages/BrowsingHistoryPage";
 import NotFound from "@/pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -28,28 +31,33 @@ const App = () => (
       <CartProvider>
         <WishlistProvider>
           <SearchProvider>
-            <Toaster />
-            <Sonner />
-            <BrowserRouter>
-              <div className="min-h-screen flex flex-col">
-                <Header />
-                <main className="flex-grow">
-                  <Routes>
-                    <Route path="/" element={<Index />} />
-                    <Route path="/products" element={<ProductsPage />} />
-                    <Route path="/product/:id" element={<ProductDetailPage />} />
-                    <Route path="/cart" element={<CartPage />} />
-                    <Route path="/checkout" element={<Checkout />} />
-                    <Route path="/order-success" element={<OrderSuccess />} />
-                    <Route path="/wishlist" element={<WishlistPage />} />
-                    <Route path="/categories" element={<CategoriesPage />} />
-                    <Route path="/category/:category" element={<CategoryProductsPage />} />
-                    <Route path="/search" element={<SearchResultsPage />} />
-                    <Route path="*" element={<NotFound />} />
-                  </Routes>
-                </main>
-              </div>
-            </BrowserRouter>
+            <BrowsingHistoryProvider>
+              <RecommendationsProvider>
+                <Toaster />
+                <Sonner />
+                <BrowserRouter>
+                  <div className="min-h-screen flex flex-col">
+                    <Header />
+                    <main className="flex-grow">
+                      <Routes>
+                        <Route path="/" element={<Index />} />
+                        <Route path="/products" element={<ProductsPage />} />
+                        <Route path="/product/:id" element={<ProductDetailPage />} />
+                        <Route path="/cart" element={<CartPage />} />
+                        <Route path="/checkout" element={<Checkout />} />
+                        <Route path="/order-success" element={<OrderSuccess />} />
+                        <Route path="/wishlist" element={<WishlistPage />} />
+                        <Route path="/browsing-history" element={<BrowsingHistoryPage />} />
+                        <Route path="/categories" element={<CategoriesPage />} />
+                        <Route path="/category/:category" element={<CategoryProductsPage />} />
+                        <Route path="/search" element={<SearchResultsPage />} />
+                        <Route path="*" element={<NotFound />} />
+                      </Routes>
+                    </main>
+                  </div>
+                </BrowserRouter>
+              </RecommendationsProvider>
+            </BrowsingHistoryProvider>
           </SearchProvider>
         </WishlistProvider>
       </CartProvider>

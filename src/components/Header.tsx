@@ -1,8 +1,7 @@
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserButton, SignInButton, useUser } from "@clerk/clerk-react";
-import { Search, ShoppingCart, Heart } from "lucide-react";
+import { Search, ShoppingCart, Heart, History } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { useWishlist } from "@/context/WishlistContext";
 import { useSearch } from "@/context/SearchContext";
@@ -41,6 +40,14 @@ const Header = () => {
                     className="text-gray-600 hover:text-shop-black transition-colors"
                   >
                     Categories
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/browsing-history"
+                    className="text-gray-600 hover:text-shop-black transition-colors"
+                  >
+                    History
                   </a>
                 </li>
               </ul>
@@ -83,6 +90,15 @@ const Header = () => {
                   {cartCount}
                 </span>
               )}
+            </Button>
+
+            <Button
+              variant="ghost"
+              size="icon"
+              className="relative btn-icon"
+              onClick={() => navigate("/browsing-history")}
+            >
+              <History className="h-5 w-5" />
             </Button>
 
             {isSignedIn ? (

@@ -57,10 +57,10 @@ export const WishlistProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   };
 
   return (
-    <WishlistContext.Provider value={{ 
-      wishlist, 
-      addToWishlist, 
-      removeFromWishlist, 
+    <WishlistContext.Provider value={{
+      wishlist,
+      addToWishlist,
+      removeFromWishlist,
       isInWishlist,
       clearWishlist,
       wishlistCount

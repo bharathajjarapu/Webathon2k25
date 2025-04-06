@@ -38,7 +38,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   // Save cart to localStorage when it changes
   useEffect(() => {
     localStorage.setItem("simplstore-cart", JSON.stringify(cart));
-    
+
     // Calculate totals
     setCartTotal(cart.reduce((total, item) => total + (item.price * item.quantity), 0));
     setCartCount(cart.reduce((count, item) => count + item.quantity, 0));
@@ -47,7 +47,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const addToCart = (product: Product, quantity = 1) => {
     setCart(prevCart => {
       const existingItemIndex = prevCart.findIndex(item => item.id === product.id);
-      
+
       if (existingItemIndex > -1) {
         // Item already exists, update quantity
         const updatedCart = [...prevCart];
@@ -71,7 +71,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
 
     setCart(prevCart => {
-      return prevCart.map(item => 
+      return prevCart.map(item =>
         item.id === productId ? { ...item, quantity } : item
       );
     });
@@ -82,11 +82,11 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   return (
-    <CartContext.Provider value={{ 
-      cart, 
-      addToCart, 
-      removeFromCart, 
-      updateQuantity, 
+    <CartContext.Provider value={{
+      cart,
+      addToCart,
+      removeFromCart,
+      updateQuantity,
       clearCart,
       cartTotal,
       cartCount
