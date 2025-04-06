@@ -94,7 +94,7 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
                   />
                   <div>
                     <h3 className="font-medium text-sm">{product.title}</h3>
-                    <p className="text-gray-600 text-sm">${product.price.toFixed(2)}</p>
+                    <p className="text-gray-600 text-sm">₹{product.price.toFixed(2)}</p>
                   </div>
                 </div>
               ))}

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserButton, SignInButton, useUser } from "@clerk/clerk-react";
-import { Search, ShoppingCart, Heart, History } from "lucide-react";
+import { Search, ShoppingCart, Heart, History, Package } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { useWishlist } from "@/context/WishlistContext";
 import { useSearch } from "@/context/SearchContext";
@@ -99,6 +99,15 @@ const Header = () => {
               onClick={() => navigate("/browsing-history")}
             >
               <History className="h-5 w-5" />
+            </Button>
+
+            <Button
+              variant="ghost"
+              size="icon"
+              className="relative btn-icon"
+              onClick={() => navigate("/orders")}
+            >
+              <Package className="h-5 w-5" />
             </Button>
 
             {isSignedIn ? (

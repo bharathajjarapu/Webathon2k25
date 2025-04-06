@@ -9,3 +9,33 @@ const SUPABASE_PUBLISHABLE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiO
 // import { supabase } from "@/integrations/supabase/client";
 
 export const supabase = createClient<Database>(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+
+export const saveOrderToSupabase = async (orderData: {
+  order_id: string;
+  user_id: string;
+  items: any[];
+  total_payment: number;
+}) => {
+  try {
+    const { data, error } = await supabase
+      .from('orders')
+      .insert([
+        {
+          order_id: orderData.order_id,
+          user_id: orderData.user_id,
+          items: orderData.items,
+          total_payment: orderData.total_payment
+        }
+      ]);
+
+    if (error) {
+      console.error('Error saving order to Supabase:', error);
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    console.error('Error in saveOrderToSupabase:', error);
+    throw error;
+  }
+};

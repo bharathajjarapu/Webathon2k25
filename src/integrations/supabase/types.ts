@@ -98,6 +98,33 @@ export type Database = {
         }
         Relationships: []
       }
+      orders: {
+        Row: {
+          id: string
+          order_id: string
+          user_id: string
+          items: Json
+          total_payment: number
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          order_id: string
+          user_id: string
+          items: Json
+          total_payment: number
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          order_id?: string
+          user_id?: string
+          items?: Json
+          total_payment?: number
+          created_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

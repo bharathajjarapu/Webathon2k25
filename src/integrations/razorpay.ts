@@ -60,44 +60,55 @@ export const handlePayment = async (
   const res = await initializeRazorpay();
   if (!res) {
     alert("Razorpay SDK failed to load");
-    return;
+    return false;
   }
 
   try {
+    // Create order on backend
     const order = await createOrder(amount);
 
-    const options = {
-      key: RAZORPAY_KEY_ID,
-      amount: amount * 100, // Razorpay expects amount in paise
-      currency: "INR",
-      name: "SimplStore",
-      description: "Purchase from SimplStore",
-      order_id: order.id,
-      handler: async function (response: RazorpayResponse) {
-        try {
-          const verified = await verifyPayment(response);
-          if (verified) {
-            return response;
-          } else {
-            throw new Error("Payment verification failed");
+    return new Promise((resolve, reject) => {
+      const options = {
+        key: RAZORPAY_KEY_ID,
+        amount: amount * 100, // Razorpay expects amount in paise
+        currency: "INR",
+        name: "SimplStore",
+        description: "Purchase from SimplStore",
+        order_id: order.id, // Use the order ID from backend
+        handler: async function (response: RazorpayResponse) {
+          try {
+            const verified = await verifyPayment(response);
+            if (verified) {
+              resolve(true);
+            } else {
+              reject(new Error("Payment verification failed"));
+            }
+          } catch (error) {
+            console.error("Payment verification error:", error);
+            reject(error);
           }
-        } catch (error) {
-          console.error("Payment verification error:", error);
-          throw error;
+        },
+        prefill: {
+          name: `${userDetails.firstName} ${userDetails.lastName}`,
+          email: userDetails.email,
+          contact: userDetails.phone,
+        },
+        theme: {
+          color: "#2563eb",
+        },
+        modal: {
+          ondismiss: function () {
+            reject(new Error("Payment cancelled by user"));
+          }
         }
-      },
-      prefill: {
-        name: `${userDetails.firstName} ${userDetails.lastName}`,
-        email: userDetails.email,
-        contact: userDetails.phone,
-      },
-      theme: {
-        color: "#2563eb",
-      },
-    };
+      };
 
-    const paymentObject = new (window as any).Razorpay(options);
-    paymentObject.open();
+      const paymentObject = new (window as any).Razorpay(options);
+      paymentObject.on('payment.failed', function (response: any) {
+        reject(new Error("Payment failed"));
+      });
+      paymentObject.open();
+    });
   } catch (error) {
     console.error("Payment failed:", error);
     throw error;

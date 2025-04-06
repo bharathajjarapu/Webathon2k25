@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Heart, ShoppingCart } from "lucide-react";
 import { Product } from "@/types/product";
@@ -49,25 +48,25 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   };
 
   return (
-    <div 
+    <div
       className="product-card group cursor-pointer"
       onClick={goToProduct}
     >
       <div className="relative overflow-hidden">
-        <img 
-          src={product.image} 
-          alt={product.title} 
+        <img
+          src={product.image}
+          alt={product.title}
           className="product-image"
         />
         <div className="absolute top-2 right-2 flex flex-col gap-2">
-          <Button 
-            variant="ghost" 
-            size="icon" 
+          <Button
+            variant="ghost"
+            size="icon"
             className="bg-white shadow-md hover:bg-gray-100 rounded-md"
             onClick={handleWishlistToggle}
           >
-            <Heart 
-              className={`h-5 w-5 ${isInWishlist(product.id) ? 'fill-red-500 text-red-500' : ''}`} 
+            <Heart
+              className={`h-5 w-5 ${isInWishlist(product.id) ? 'fill-red-500 text-red-500' : ''}`}
             />
           </Button>
         </div>
@@ -77,10 +76,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <div className="text-xs text-gray-500 uppercase mb-1">{product.category}</div>
         <h3 className="font-medium text-shop-black line-clamp-1">{product.title}</h3>
         <div className="mt-2 flex items-center justify-between">
-          <div className="font-semibold">${product.price.toFixed(2)}</div>
-          <Button 
-            variant="ghost" 
-            size="icon" 
+          <div className="font-semibold">₹{product.price.toFixed(2)}</div>
+          <Button
+            variant="ghost"
+            size="icon"
             className="opacity-0 group-hover:opacity-100 transition-opacity"
             onClick={handleAddToCart}
           >

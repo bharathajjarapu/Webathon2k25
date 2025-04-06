@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { handlePayment } from "../integrations/razorpay";
 import { CheckoutFormData } from "../types/checkout";
+import { saveOrderToSupabase } from "../integrations/supabase/client";
 
 const Checkout: React.FC = () => {
   const navigate = useNavigate();
@@ -32,11 +33,65 @@ const Checkout: React.FC = () => {
     setError("");
 
     try {
-      await handlePayment(cartTotal, cart, formData);
-      clearCart();
-      navigate("/order-success");
+      const paymentSuccess = await handlePayment(cartTotal, cart, formData);
+
+      if (paymentSuccess) {
+        // Save order to localStorage
+        const order = {
+          id: Date.now().toString(),
+          date: new Date().toISOString(),
+          status: "success" as const,
+          total: cartTotal,
+          items: cart.map(item => ({
+            id: item.id,
+            title: item.title,
+            price: item.price,
+            quantity: item.quantity,
+            image: item.image
+          })),
+          shippingDetails: formData
+        };
+
+        // Save order to Supabase
+        await saveOrderToSupabase({
+          order_id: order.id,
+          user_id: formData.email, // Using email as user_id for now
+          items: order.items,
+          total_payment: order.total
+        });
+
+        // Save order to localStorage
+        const existingOrders = JSON.parse(localStorage.getItem("orders") || "[]");
+        localStorage.setItem("orders", JSON.stringify([order, ...existingOrders]));
+
+        // Clear cart and navigate to success page
+        clearCart();
+        navigate("/order-success", { state: { order } });
+      } else {
+        // Save failed order to localStorage
+        const failedOrder = {
+          id: Date.now().toString(),
+          date: new Date().toISOString(),
+          status: "failed" as const,
+          total: cartTotal,
+          items: cart.map(item => ({
+            id: item.id,
+            title: item.title,
+            price: item.price,
+            quantity: item.quantity,
+            image: item.image
+          })),
+          shippingDetails: formData
+        };
+
+        const existingOrders = JSON.parse(localStorage.getItem("orders") || "[]");
+        localStorage.setItem("orders", JSON.stringify([failedOrder, ...existingOrders]));
+
+        setError("Payment failed. Please try again.");
+      }
     } catch (err) {
-      setError("Payment failed. Please try again.");
+      const errorMessage = err instanceof Error ? err.message : "Payment failed. Please try again.";
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
